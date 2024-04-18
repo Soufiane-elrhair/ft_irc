@@ -146,47 +146,47 @@ void            Server::on_client_connect()
 
 void            Server::on_client_disconnect(int fd)
 {
-    try
-    {
-        // finding the client and removing
+    // try
+    // {
+    //     // finding the client and removing
 
-        Client* client = _clients.at(fd);
+    //     Client* client = _clients.at(fd);
 
-        client->leave();
+    //     client->leave();
 
-        // log about disconnecting 
+    //     // log about disconnecting 
 
-        char message[1000];
-		sprintf(message, "%s:%d has disconnected!", client->get_hostname().c_str(), client->get_port());
-		log(message);
+    //     char message[1000];
+	// 	sprintf(message, "%s:%d has disconnected!", client->get_hostname().c_str(), client->get_port());
+	// 	log(message);
 
-        _clients.erase(fd);
+    //     _clients.erase(fd);
 
-        // removing the client fd from the poll
+    //     // removing the client fd from the poll
 
-        pfd_iterator it_b = _pfds.begin();
-        pfd_iterator it_e = _pfds.end();
+    //     pfd_iterator it_b = _pfds.begin();
+    //     pfd_iterator it_e = _pfds.end();
 
-        while (it_b != it_e)
-        {
-            if (it_b->fd == fd)
-            {
-                _pfds.erase(it_b);
-                close(fd);
-                break;
-            }
+    //     while (it_b != it_e)
+    //     {
+    //         if (it_b->fd == fd)
+    //         {
+    //             _pfds.erase(it_b);
+    //             close(fd);
+    //             break;
+    //         }
 
-            it_b++;
-        }
+    //         it_b++;
+    //     }
 
-        // release memory
+    //     // release memory
 
-        delete client;
-    }
-    catch (const std::exception &e)
-    {
-        std::cout << "Error while disconnecting! " << e.what() << std::endl;
-    }
+    //     delete client;
+    // }
+    // catch (const std::exception &e)
+    // {
+    //     std::cout << "Error while disconnecting! " << e.what() << std::endl;
+    // }
 }
 
 void            Server::on_client_message(int fd)
@@ -242,40 +242,40 @@ int             Server::create_socket()
 {
     // opening a socket
 
-    int sock_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sock_fd < 0)
-        throw std::runtime_error("Error while opening a socket!");
+    // int sock_fd = socket(AF_INET, SOCK_STREAM, 0);
+    // if (sock_fd < 0)
+    //     throw std::runtime_error("Error while opening a socket!");
 
-    // forcefully attacing socket to the port by making it reusable
+    // // forcefully attacing socket to the port by making it reusable
 
-    int optval = 1;
-    if (setsockopt(sock_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)))
-        throw std::runtime_error("Error while setting socket options!");
+    // int optval = 1;
+    // if (setsockopt(sock_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)))
+    //     throw std::runtime_error("Error while setting socket options!");
 
-    // making the socket NON-BLOCKING
+    // // making the socket NON-BLOCKING
 
-    if (fcntl(sock_fd, F_SETFL, O_NONBLOCK))
-        throw std::runtime_error("Error while setting socket to NON-BLOCKING!");
+    // if (fcntl(sock_fd, F_SETFL, O_NONBLOCK))
+    //     throw std::runtime_error("Error while setting socket to NON-BLOCKING!");
 
-    // gathering neccessary data for binding
+    // // gathering neccessary data for binding
     
-    struct sockaddr_in  serv_addr = {};
+    // struct sockaddr_in  serv_addr = {};
 
-    bzero((char*) &serv_addr, sizeof(serv_addr));
+    // bzero((char*) &serv_addr, sizeof(serv_addr));
     
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons(atoi(_port.c_str()));
+    // serv_addr.sin_family = AF_INET;
+    // serv_addr.sin_addr.s_addr = INADDR_ANY;
+    // serv_addr.sin_port = htons(atoi(_port.c_str()));
 
-    // bind socket to an IP address on selected port
+    // // bind socket to an IP address on selected port
     
-    if (bind(sock_fd, (sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
-        throw std::runtime_error("Error while binding a socket!");
+    // if (bind(sock_fd, (sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
+    //     throw std::runtime_error("Error while binding a socket!");
 
-    // listening for requests
+    // // listening for requests
 
-    if (listen(sock_fd, MAX_CONNECTIONS) < 0)
-        throw std::runtime_error("Error while listening on a socket!");
+    // if (listen(sock_fd, MAX_CONNECTIONS) < 0)
+    //     throw std::runtime_error("Error while listening on a socket!");
 
-    return sock_fd;
+    // return sock_fd;
 }
