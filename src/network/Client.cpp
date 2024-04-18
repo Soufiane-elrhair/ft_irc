@@ -44,6 +44,7 @@ void            Client::set_channel(Channel *channel) { _channel = channel; }
 
 
 
+
 bool            Client::is_registered() const { return _state == REGISTERED; }
 
 
