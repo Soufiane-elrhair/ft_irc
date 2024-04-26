@@ -23,5 +23,5 @@ re: fclean all
 
 push:
 	git add .
-	git commit -m "HiHo 0xhel... I'm back..our IRC server is now working with a lot of new features"
+	git commit -m "update"
 	git push
