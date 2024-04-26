@@ -20,8 +20,3 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
-
-push:
-	git add .
-	git commit -m "update"
-	git push
