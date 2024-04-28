@@ -194,7 +194,7 @@ std::string Server::join(Request request, int fd)
                         }
                         else
                         {
-                            it->second->addMember(client[fd]);
+                            // it->second->addMember(client[fd]);
                             it->second->update_onlinemembers();
                             this->client[fd]->setchannel(request.arguments[i]);
                             return (join_message(request.arguments[i], fd));

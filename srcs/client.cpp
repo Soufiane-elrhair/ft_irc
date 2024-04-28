@@ -24,7 +24,7 @@ Client &Client::operator=(Client const &rhs)
         this->_isConnected = rhs._isConnected;
         this->_clientFd = rhs._clientFd;
         this->_username = rhs._username;
-        // this->_nickname = rhs._nickname;
+        this->_nickname = rhs._nickname;
         this->_id = rhs._id;
     }
     return (*this);

@@ -100,8 +100,8 @@ static int make_socket_non_blocking(int sfd)
         std::cerr << "fcntl Error" << std::endl;
         return -1;
     }
-
-    flags |= O_NONBLOCK;
+    // ? come back to this latter
+    // flags |= O_NONBLOCK;
     s = fcntl(sfd, F_SETFL, flags);
     if(s == -1)
     {
@@ -114,16 +114,16 @@ static int make_socket_non_blocking(int sfd)
 void Server::acceptSocket()
 {
     //accept a connection
-    int s;
-    sockaddr_in client;
-    socklen_t clientSize = sizeof(client);
-    char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
-    int clientSocket = accept(this->lstn_sock, (sockaddr*)&client, &clientSize);
-    if (clientSocket < 0)
-    {
-        std::cerr << "Problem with client connecting!" << std::endl;
-        exit(1);
-    }
+    // int s;
+    // sockaddr_in client;
+    // socklen_t clientSize = sizeof(client);
+    // char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
+    // int clientSocket = accept(this->lstn_sock, (sockaddr*)&client, &clientSize);
+    // if (clientSocket < 0)
+    // {
+    //     std::cerr << "Problem with client connecting!" << std::endl;
+    //     exit(1);
+    // }
     s = getnameinfo((sockaddr*)&client, sizeof(client), hbuf, sizeof(hbuf), sbuf, sizeof(sbuf), NI_NUMERICHOST | NI_NUMERICSERV);
     if (s == 0)
     {
@@ -150,7 +150,7 @@ void Server::readSocket()
         if (nfds == -1)
         {
             std::cerr << "Can't wait for events" << std::endl;
-            exit(1);
+            // exit(1);
         }
         for(int i = 0; i < nfds; i++)
         {
@@ -178,7 +178,7 @@ void Server::readSocket()
                     else {
                         // totalBytesReceived += bytesIn;
                         // if (bytesIn < MAX_BUFFER_SIZE) {
-                        //     // printf("**********Received: %s\n", buffer);
+                            printf("**********Received: %s\n", buffer);
                         //     std::string res = parseMessage(buffer, events[i].data.fd);
                         //     //std::cout << "Received: " << std::string(buffer, totalBytesReceived) << std::endl;
                         //     send(events[i].data.fd, res.c_str(), res.length(), 0);

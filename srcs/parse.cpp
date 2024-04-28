@@ -78,7 +78,7 @@ Request Server::parseRequest(std::string message)
         x++;
     }
 
-    request.arguments.push_back(message.substr(y, x - y));
+    // request.arguments.push_back(message.substr(y, x - y));
     request.method = request.arguments[0];
     if (request.arguments[request.arguments.size() - 1][request.arguments[request.arguments.size() - 1].size() - 1] == '\n')
         request.arguments[request.arguments.size() - 1].erase(request.arguments[request.arguments.size() - 1].size() - 1, 1);
