@@ -139,21 +139,6 @@ std::string Server::user(Request request, int fd)
         }
     this->client[fd]->setusername(request.arguments[0]);
     return ("IRC : Your username is " + request.arguments[1]);
-        // if (client->is_registered())
-    // {
-    //     client->reply(ERR_ALREADYREGISTERED(client->get_nickname()));
-    //     return;
-    // }
-
-    // if (args.size() < 4) 
-    // {
-    //     client->reply(ERR_NEEDMOREPARAMS(client->get_nickname(), "USER"));
-    //     return;
-    // }
-
-    // client->set_username(args[0]);
-    // client->set_realname(args[3]);
-    // client->welcome();
 }
 
 std::string Server::join(Request request, int fd)
@@ -209,7 +194,7 @@ std::string Server::join(Request request, int fd)
                         }
                         else
                         {
-                            // it->second->addMember(client[fd]);
+                            it->second->addMember(client[fd]);
                             it->second->update_onlinemembers();
                             this->client[fd]->setchannel(request.arguments[i]);
                             return (join_message(request.arguments[i], fd));
